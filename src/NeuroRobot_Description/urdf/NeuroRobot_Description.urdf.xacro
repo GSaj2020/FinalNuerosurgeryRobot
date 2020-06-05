@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="ur5" >
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+  
+  <!-- ur5 -->
+  <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+  
+  <!-- arm -->
+  <xacro:ur5_robot prefix="" joint_limited="false"/>
+
+  <!-- needle -->
+  <joint name="needle_holder" type="fixed">
+      <origin xyz="-0.05 -0.05 0" rpy="0 0 0"/>
+      <parent link="tool0"/>
+      <child link="needle_holder"/>
+    </joint>
+    
+    <link name='needle_holder'>
+      <origin pose='0.0 0.0 0.0 0.0 0.0 0.0'/>
+      <visual>
+	<geometry>
+          <mesh filename="package://NeuroRobot_Description/mesh/needle_holder_concentric.stl" scale="0.001 0.001 0.0005"/>
+	</geometry>
+      </visual>
+    </link>
+
+    <joint name="needle" type="fixed">
+      <origin xyz="0.05 0.05 0.2" rpy="0 0 0"/>
+      <parent link="needle_holder"/>
+      <child link="needle"/>
+    </joint>
+
+    <link name='needle'>
+      <origin pose='0.0 0.0 0.0 0.0 0.0 0.0'/>
+    </link>
+  
+</robot>
